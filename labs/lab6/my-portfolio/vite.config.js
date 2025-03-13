@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    setupFiles: "./setupTests.js", // Ensures jest-dom is set up properly
+    setupFiles: "./setupTests.js",
     environment: "jsdom",
   },
 });

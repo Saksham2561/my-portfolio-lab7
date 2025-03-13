@@ -2,25 +2,28 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 
 function About() {
   return (
-    <Container fluid className="min-vh-100 py-5" style={{ backgroundColor: "#f5f5dc" }}>
-      <Container className="p-4">
-        <h1 className="text-center display-4 fw-bold mb-4" style={{ color: "#6a0dad" }}>About Me</h1>
-        
+    <Container
+      fluid
+      className="text-center min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light"
+    >
+      <div className="p-5 border rounded shadow-lg bg-white text-dark" style={{ maxWidth: "800px" }}>
+        <h1 className="display-4 fw-bold mb-4 text-purple">About Me</h1>
+
         <Row className="justify-content-center">
-          <Col md={8}>
+          <Col md={10}>
             <Card className="p-4 shadow border-0">
               <Card.Body>
-                <h3 style={{ color: "#333" }}>Education</h3>
+                <h3 className="text-purple">Education</h3>
                 <p><strong>Dalhousie University</strong> – Bachelor of Computer Science (2021-2025)</p>
 
-                <h3 className="mt-4" style={{ color: "#333" }}>Skills</h3>
+                <h3 className="mt-4 text-purple">Skills</h3>
                 <ul className="fs-5">
                   <li>Programming: Java, C#, Python, SQL, React.js</li>
                   <li>Developer Tools: Git, Jenkins, Jira</li>
                   <li>Methodologies: Agile, Scrum</li>
                 </ul>
 
-                <h3 className="mt-4" style={{ color: "#333" }}>Experience</h3>
+                <h3 className="mt-4 text-purple">Experience</h3>
 
                 <h4 className="mt-3"><strong>Software Developer (Co-op)</strong></h4>
                 <p><strong>Irving Oil</strong> – Saint John, NB (Sep 2024 – Dec 2024)</p>
@@ -48,7 +51,7 @@ function About() {
             </Card>
           </Col>
         </Row>
-      </Container>
+      </div>
     </Container>
   );
 }

@@ -6,31 +6,29 @@ import NotFound from "./NotFound";
 import "@testing-library/jest-dom";
 
 describe("NotFound Page", () => {
-  test("renders 404 page correctly", () => {
+  test("should render 404 page correctly", () => {
     render(
       <MemoryRouter>
         <NotFound />
       </MemoryRouter>
     );
+    const notFoundMessage = screen.getByText("Oops! Page Not Found");
+    const backButton = screen.getByRole("button", { name: /back to home/i });
 
-    expect(screen.getByText("Oops! Page Not Found")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /back to home/i })).toBeInTheDocument();
+    expect(notFoundMessage).toBeInTheDocument();
+    expect(backButton).toBeInTheDocument();
   });
 
-  test("navigates to home page when button is clicked", async () => {
+  test("should navigate to home page when back button is clicked", async () => {
     const user = userEvent.setup();
+    
     render(
       <MemoryRouter>
         <NotFound />
       </MemoryRouter>
     );
 
-    const button = screen.getByRole("button", { name: /back to home/i });
-
-    await user.click(button);
-
-    // Since MemoryRouter doesn't have a real navigation system,
-    // we can't verify navigation directly here.
-    // The actual navigation should be tested in App.test.jsx.
+    const backButton = screen.getByRole("button", { name: /back to home/i });
+    await user.click(backButton);
   });
 });

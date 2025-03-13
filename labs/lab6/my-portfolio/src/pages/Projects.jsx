@@ -25,9 +25,12 @@ function Projects() {
   ];
 
   return (
-    <Container fluid className="min-vh-100 py-5" style={{ backgroundColor: "#f5f5dc" }}>
-      <Container>
-        <h1 className="text-center display-4 fw-bold mb-4" style={{ color: "#6a0dad" }}>Projects</h1>
+    <Container
+      fluid
+      className="text-center min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light"
+    >
+      <div className="p-5 border rounded shadow-lg bg-white text-dark" style={{ maxWidth: "800px" }}>
+        <h1 className="display-4 fw-bold mb-4 text-purple">Projects</h1>
 
         <Row className="justify-content-center">
           {projects.map((project, index) => (
@@ -36,7 +39,7 @@ function Projects() {
                 <Card.Body>
                   <h3 className="text-dark">{project.title}</h3>
                   <p className="fw-bold text-secondary">{project.technologies}</p>
-                  <ul>
+                  <ul className="fs-5">
                     {project.description.map((point, idx) => (
                       <li key={idx}>{point}</li>
                     ))}
@@ -46,7 +49,7 @@ function Projects() {
             </Col>
           ))}
         </Row>
-      </Container>
+      </div>
     </Container>
   );
 }

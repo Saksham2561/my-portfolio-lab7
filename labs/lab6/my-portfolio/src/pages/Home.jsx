@@ -1,40 +1,50 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <Container 
-      fluid 
-      className="text-center min-vh-100 d-flex flex-column align-items-center justify-content-center" 
-      style={{ backgroundColor: "#f5f5dc" }}
+    <Container
+      fluid
+      className="text-center min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light"
     >
-      <div className="p-5 border rounded shadow bg-white text-dark" style={{ maxWidth: "800px" }}>
+      <div className="p-5 border rounded shadow-lg bg-white text-dark" style={{ maxWidth: "800px" }}>
         {/* Profile Image */}
         <img
           src="/Linkedin.jpeg"
-          alt="Saksham Aggarwal"
-          className="rounded-circle shadow mb-3"
-          style={{ width: "150px", height: "150px", objectFit: "cover" }}
+          alt="Saksham Aggarwal's Profile Picture"
+          className="rounded-circle shadow-sm mb-3"
+          width="150"
+          height="150"
+          style={{ objectFit: "cover" }}
         />
 
-        <h1 className="display-3 fw-bold mb-3" style={{ color: "#6a0dad" }}>Welcome to My Portfolio</h1>
+        <h1 className="display-4 fw-bold mb-3 text-purple">Hello & Welcome!</h1>
         <p className="lead fs-4">
-          Hi, I'm <strong>Saksham Aggarwal</strong>, a dedicated software developer with a passion for crafting efficient and scalable web and software solutions.
+          I'm <strong>Saksham Aggarwal</strong>, a passionate software developer dedicated to building scalable and efficient digital solutions.
         </p>
         <hr className="my-4" />
         <Row className="justify-content-center">
           <Col md={10}>
             <p className="fs-5">
-              With experience in full-stack development, API integration, and cloud technologies, I specialize in building interactive and data-driven applications. 
-              I thrive on solving complex problems and continuously learning new technologies.
+              With expertise in full-stack development, API integrations, and cloud computing, I specialize in crafting seamless and high-performance applications. 
+              I thrive on tackling complex problems and continuously expanding my skill set.
             </p>
             <p className="fs-5">
-              Explore my projects and experiences to see how I turn ideas into reality through clean, efficient, and scalable code.
+              Browse my portfolio to discover how I bring ideas to life with clean and maintainable code.
             </p>
           </Col>
         </Row>
         <div className="mt-4">
-          <Button variant="dark" href="/projects" className="mx-2">View Projects</Button>
-          <Button variant="outline-dark" href="/about" className="mx-2">About Me</Button>
+          <Link to="/projects">
+            <Button variant="dark" className="mx-2" aria-label="View My Projects">
+              Explore Projects
+            </Button>
+          </Link>
+          <Link to="/about">
+            <Button variant="outline-dark" className="mx-2" aria-label="Learn More About Me">
+              More About Me
+            </Button>
+          </Link>
         </div>
       </div>
     </Container>

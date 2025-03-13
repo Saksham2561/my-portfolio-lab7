@@ -5,7 +5,7 @@ import NotFound from "./pages/NotFound";
 import "@testing-library/jest-dom";
 
 describe("App Routing", () => {
-  test("redirects to 404 page for unknown routes", () => {
+  test("should display 404 page for unknown routes", () => {
     render(
       <MemoryRouter initialEntries={["/some-random-page"]}>
         <Routes>
@@ -13,7 +13,7 @@ describe("App Routing", () => {
         </Routes>
       </MemoryRouter>
     );
-
-    expect(screen.getByText("Oops! Page Not Found")).toBeInTheDocument();
+    const notFoundMessage = screen.getByText("Oops! Page Not Found");
+    expect(notFoundMessage).toBeInTheDocument();
   });
 });

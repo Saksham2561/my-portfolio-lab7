@@ -34,7 +34,8 @@ None
 ## Links
 
 - [GitLab Repository](https://git.cs.dal.ca/saksham/csci-3172/-/tree/main/labs/lab6)
-- [Live Demo](https://web.cs.dal.ca/~saksham/csci3172/labs/lab6)
+- [GitHub Repository](https://github.com/Saksham2561/my-portfolio-lab6/tree/main/labs/lab6/my-portfolio)
+- [Netlify](https://myportfolio-lab6.netlify.app/)
 
 ## Acknowledgments
 

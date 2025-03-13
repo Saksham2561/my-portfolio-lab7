@@ -1,19 +1,34 @@
 import { Container, Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Header() {
+  const location = useLocation();
+
   return (
-    <Navbar style={{ backgroundColor: "#222" }} variant="dark" expand="lg" className="w-100 py-3 shadow">
+    <Navbar expand="lg" bg="dark" variant="dark" className="w-100 shadow">
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold fs-3 text-light">
           My Portfolio
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbar-nav" aria-label="Toggle navigation" />
-        <Navbar.Collapse id="navbar-nav">
+        <Navbar.Toggle aria-controls="main-navbar" aria-label="Toggle navigation" />
+        <Navbar.Collapse id="main-navbar">
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/" className="fs-5 text-light">Home</Nav.Link>
-            <Nav.Link as={Link} to="/about" className="fs-5 text-light">About</Nav.Link>
-            <Nav.Link as={Link} to="/projects" className="fs-5 text-light">Projects</Nav.Link>
+            {[
+              { name: "Home", path: "/" },
+              { name: "About", path: "/about" },
+              { name: "Projects", path: "/projects" },
+            ].map((item, index) => (
+              <Nav.Link
+                key={index}
+                as={Link}
+                to={item.path}
+                className="fs-5 text-light"
+                tabIndex="0"
+                aria-current={location.pathname === item.path ? "page" : undefined}
+              >
+                {item.name}
+              </Nav.Link>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Container>

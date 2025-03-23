@@ -2,15 +2,13 @@ const express = require('express');
 const axios = require('axios');
 const dotenv = require('dotenv');
 
-// Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 const PORT = 5001;
-const cors = require('cors'); // Import cors
-app.use(cors()); // Enable CORS for all routes
+const cors = require('cors'); 
+app.use(cors()); 
 
-// Projects data
 const projects = [
     {
         id: 1,
@@ -38,34 +36,31 @@ const projects = [
     }
 ];
 
-// API route to get all projects
-app.get('/api/projects', (req, res) => {
-    res.json(projects);
+
+app.get("/api/projects", (req, res) => {
+    res.status(200).json(projects);
 });
 
-// API route to get weather data (using OpenWeatherMap API)
-app.get('/api/weather', async (req, res) => {
-    const city = 'Halifax'; // You can change this or get it from query parameters
+app.get("/api/weather", async (req, res) => {
+    const location = "Halifax";
 
     try {
-        const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
+        const weatherData = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
         );
 
-        console.log("Weather API Response:", response.data); // Debugging
+        console.log("Received Weather Data:", weatherData.data);
 
-        const { temp, humidity } = response.data.main;
-        const description = response.data.weather?.[0]?.description || "No description available";
+        const { temp, humidity } = weatherData.data.main;
+        const weatherDescription = weatherData.data.weather?.[0]?.description || "No weather details available";
 
-        // Send the full weather data including the description
-        res.json({ city, temperature: temp, humidity, description });
-    } catch (error) {
-        console.error("Error fetching weather data:", error.response?.data || error.message);
-        res.status(500).json({ error: 'Failed to fetch weather data' });
+        res.json({ location, temperature: temp, humidity, description: weatherDescription });
+    } catch (err) {
+        console.error("Weather API Fetch Error:", err.response?.data || err.message);
+        res.status(500).json({ error: "Could not retrieve weather information" });
     }
 });
 
-// Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server successfully running at http://localhost:${PORT}`);
 });

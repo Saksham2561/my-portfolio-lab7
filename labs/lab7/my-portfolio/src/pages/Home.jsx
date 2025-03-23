@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function Home() {
-  const [weather, setWeather] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const Home = () => {
+  const [weatherData, setWeatherData] = useState(null);
+  const [isFetching, setIsFetching] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:5001/api/weather")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch weather data");
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Could not retrieve weather data.");
         }
-        return response.json();
+        return res.json();
       })
       .then((data) => {
-        setWeather(data);
-        setLoading(false);
+        setWeatherData(data);
+        setIsFetching(false);
       })
       .catch((err) => {
-        setError(err.message);
-        setLoading(false);
+        setFetchError(err.message);
+        setIsFetching(false);
       });
   }, []);
 
@@ -31,7 +31,6 @@ function Home() {
       className="text-center min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light"
     >
       <div className="p-5 border rounded shadow-lg bg-white text-dark" style={{ maxWidth: "800px" }}>
-        {/* Profile Image */}
         <img
           src="/Linkedin.jpeg"
           alt="Saksham Aggarwal's Profile Picture"
@@ -41,22 +40,23 @@ function Home() {
           style={{ objectFit: "cover" }}
         />
 
-        <h1 className="display-4 fw-bold mb-3 text-purple">Hello & Welcome!</h1>
+        <h1 className="display-4 fw-bold mb-3 text-purple">Welcome to My Space!</h1>
         <p className="lead fs-4">
-          I'm <strong>Saksham Aggarwal</strong>, a passionate software developer dedicated to building scalable and efficient digital solutions.
+          I'm <strong>Saksham Aggarwal</strong>, a software developer passionate about crafting efficient and scalable applications.
         </p>
         <hr className="my-4" />
+
         <Row className="justify-content-center">
           <Col md={10}>
             <p className="fs-5">
-              With expertise in full-stack development, API integrations, and cloud computing, I specialize in crafting seamless and high-performance applications. 
-              I thrive on tackling complex problems and continuously expanding my skill set.
+              Specializing in full-stack development, API integrations, and cloud technologies, I enjoy solving complex problems and continuously enhancing my skill set.
             </p>
             <p className="fs-5">
-              Browse my portfolio to discover how I bring ideas to life with clean and maintainable code.
+              Feel free to explore my projects and see how I transform ideas into reality with clean, maintainable code.
             </p>
           </Col>
         </Row>
+
         <div className="mt-4">
           <Link to="/projects">
             <Button variant="dark" className="mx-2" aria-label="View My Projects">
@@ -70,25 +70,24 @@ function Home() {
           </Link>
         </div>
 
-        {/* Weather Section */}
         <div className="mt-5 p-4 border rounded shadow-sm bg-light">
-          <h2 className="text-purple">Current Weather</h2>
+          <h2 className="text-purple">Weather Update</h2>
 
-          {loading && <Spinner animation="border" />}
-          {error && <Alert variant="danger">{error}</Alert>}
-          
-          {weather && (
+          {isFetching && <Spinner animation="border" />}
+          {fetchError && <Alert variant="danger">{fetchError}</Alert>}
+
+          {weatherData && (
             <div className="fs-5">
-              <p><strong>Location:</strong> {weather.city}</p>
-              <p><strong>Temperature:</strong> {weather.temperature}°C</p>
-              <p><strong>Humidity:</strong> {weather.humidity}%</p> 
-              <p><strong>Condition:</strong> {weather.description}</p> 
+              <p><strong>City:</strong> {weatherData.city}</p>
+              <p><strong>Temperature:</strong> {weatherData.temperature}°C</p>
+              <p><strong>Humidity:</strong> {weatherData.humidity}%</p>
+              <p><strong>Condition:</strong> {weatherData.description}</p>
             </div>
           )}
         </div>
       </div>
     </Container>
   );
-}
+};
 
 export default Home;

@@ -9,26 +9,32 @@ import { Container, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+  const [currentTheme, setCurrentTheme] = useState(
+    localStorage.getItem("theme") ?? "light"
+  );
+
+  const handleThemeToggle = () => {
+    const updatedTheme = currentTheme === "light" ? "dark" : "light";
+    setCurrentTheme(updatedTheme);
+    localStorage.setItem("theme", updatedTheme);
   };
+
   useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
+    document.body.className = currentTheme;
+  }, [currentTheme]);
 
   return (
-    <div className={`app-container ${theme}`}>
+    <div className={`app-container ${currentTheme}`}>
       <Header />
       <Container className="mt-4">
         <div className="d-flex justify-content-end mb-3">
-          <Button variant={theme === "light" ? "dark" : "light"} onClick={toggleTheme}>
-            {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+          <Button
+            variant={currentTheme === "light" ? "dark" : "light"}
+            onClick={handleThemeToggle}
+          >
+            {currentTheme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
           </Button>
         </div>
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

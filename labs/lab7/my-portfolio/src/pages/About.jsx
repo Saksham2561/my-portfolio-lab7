@@ -1,27 +1,27 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 
-const skillsData = [
-  { name: "Java", category: "Programming" },
-  { name: "C#", category: "Programming" },
-  { name: "Python", category: "Programming" },
-  { name: "SQL", category: "Programming" },
-  { name: "React.js", category: "Programming" },
-  { name: "Git", category: "Developer Tools" },
-  { name: "Jenkins", category: "Developer Tools" },
-  { name: "Jira", category: "Developer Tools" },
-  { name: "Agile", category: "Methodologies" },
-  { name: "Scrum", category: "Methodologies" },
+const skills = [
+  { name: "Java", type: "Programming" },
+  { name: "C#", type: "Programming" },
+  { name: "Python", type: "Programming" },
+  { name: "SQL", type: "Programming" },
+  { name: "React.js", type: "Programming" },
+  { name: "Git", type: "Developer Tools" },
+  { name: "Jenkins", type: "Developer Tools" },
+  { name: "Jira", type: "Developer Tools" },
+  { name: "Agile", type: "Methodologies" },
+  { name: "Scrum", type: "Methodologies" },
 ];
 
-function About() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+const About = () => {
+  const [query, setQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("");
 
-  const filteredSkills = skillsData.filter(
+  const filteredSkills = skills.filter(
     (skill) =>
-      skill.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedCategory === "" || skill.category === selectedCategory)
+      skill.name.toLowerCase().includes(query.toLowerCase()) &&
+      (activeCategory === "" || skill.type === activeCategory)
   );
 
   return (
@@ -37,38 +37,38 @@ function About() {
             <Card className="p-4 shadow border-0">
               <Card.Body>
                 <h3 className="text-purple">Education</h3>
-                <p><strong>Dalhousie University</strong> – Bachelor of Computer Science (2021-2025)</p>
+                <p>
+                  <strong>Dalhousie University</strong> – Bachelor of Computer Science (2021-2025)
+                </p>
 
-                {/* Interactive Skills Section */}
                 <h3 className="mt-4 text-purple">Skills</h3>
 
-                {/* Search Box */}
                 <Form.Control
                   type="text"
                   placeholder="Search skills..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                   className="mb-3"
                 />
 
-                {/* Category Buttons */}
                 <div className="d-flex gap-2 mb-3">
                   {["Programming", "Developer Tools", "Methodologies"].map((category) => (
                     <Button
                       key={category}
-                      variant={selectedCategory === category ? "primary" : "outline-primary"}
-                      onClick={() => setSelectedCategory(selectedCategory === category ? "" : category)}
+                      variant={activeCategory === category ? "primary" : "outline-primary"}
+                      onClick={() => setActiveCategory(activeCategory === category ? "" : category)}
                     >
                       {category}
                     </Button>
                   ))}
                 </div>
 
-                {/* Filtered Skill List */}
                 <ul className="fs-5">
-                  {filteredSkills.length > 0 ? (
+                  {filteredSkills.length ? (
                     filteredSkills.map((skill, index) => (
-                      <li key={index}>{skill.name} <small>({skill.category})</small></li>
+                      <li key={index}>
+                        {skill.name} <small>({skill.type})</small>
+                      </li>
                     ))
                   ) : (
                     <li className="text-muted">No matching skills found.</li>
@@ -77,27 +77,39 @@ function About() {
 
                 <h3 className="mt-4 text-purple">Experience</h3>
 
-                <h4 className="mt-3"><strong>Software Developer (Co-op)</strong></h4>
-                <p><strong>Irving Oil</strong> – Saint John, NB (Sep 2024 – Dec 2024)</p>
+                <h4 className="mt-3">
+                  <strong>Software Developer (Co-op)</strong>
+                </h4>
+                <p>
+                  <strong>Irving Oil</strong> – Saint John, NB (Sep 2024 – Dec 2024)
+                </p>
                 <ul>
-                  <li>Enhanced Irving Oil’s loyalty API using C#, SQL Server Management Studio (SSMS), and Angular...</li>
-                  <li>Built a scheduled batch Apex process in Salesforce to update over 2 million loyalty member records...</li>
-                  <li>Fixed a critical sign-up bug on the Hometown Rewards website...</li>
-                  <li>Introduced a Salesforce feature for customer support to set and lookup preferred retail sites...</li>
+                  <li>Enhanced Irving Oil’s loyalty API using C#, SQL Server Management Studio (SSMS), and Angular.</li>
+                  <li>Developed a scheduled batch Apex process in Salesforce to update over 2 million loyalty member records.</li>
+                  <li>Resolved a critical sign-up issue on the Hometown Rewards website.</li>
+                  <li>Implemented a Salesforce feature enabling customer support to manage preferred retail sites.</li>
                 </ul>
 
-                <h4 className="mt-3"><strong>Learning Specialist (Co-op)</strong></h4>
-                <p><strong>Digital Moment</strong> – Montreal, QC (Sep 2023 – Dec 2023)</p>
+                <h4 className="mt-3">
+                  <strong>Learning Specialist (Co-op)</strong>
+                </h4>
+                <p>
+                  <strong>Digital Moment</strong> – Montreal, QC (Sep 2023 – Dec 2023)
+                </p>
                 <ul>
-                  <li>Analyzed and visualized data in the Data Dunkers program using Python, NumPy, Pandas...</li>
-                  <li>Identified and rectified errors in the hackathon’s starter code...</li>
+                  <li>Worked with Python, NumPy, and Pandas to analyze and visualize data in the Data Dunkers program.</li>
+                  <li>Identified and corrected issues in the hackathon starter code.</li>
                 </ul>
 
-                <h4 className="mt-3"><strong>Undergraduate Teaching Assistant (CSCI 1105)</strong></h4>
-                <p><strong>Dalhousie University</strong> – Halifax, NS (Sep 2022 – Dec 2022)</p>
+                <h4 className="mt-3">
+                  <strong>Undergraduate Teaching Assistant (CSCI 1105)</strong>
+                </h4>
+                <p>
+                  <strong>Dalhousie University</strong> – Halifax, NS (Sep 2022 – Dec 2022)
+                </p>
                 <ul>
-                  <li>Provided timely feedback to over 100 students...</li>
-                  <li>Assisted in the preparation of teaching materials...</li>
+                  <li>Provided timely feedback to over 100 students.</li>
+                  <li>Helped develop teaching materials for the course.</li>
                 </ul>
               </Card.Body>
             </Card>
@@ -106,6 +118,6 @@ function About() {
       </div>
     </Container>
   );
-}
+};
 
 export default About;

@@ -38,5 +38,6 @@
   "vitest": {
     "environment": "jsdom",
     "setupFiles": "./setupTests.js"
-  }
+  },
+  "proxy": "http://localhost:5001"
 }

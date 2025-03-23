@@ -1,7 +1,30 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Home() {
+  const [weather, setWeather] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/weather")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch weather data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setWeather(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <Container
       fluid
@@ -45,6 +68,23 @@ function Home() {
               More About Me
             </Button>
           </Link>
+        </div>
+
+        {/* Weather Section */}
+        <div className="mt-5 p-4 border rounded shadow-sm bg-light">
+          <h2 className="text-purple">Current Weather</h2>
+
+          {loading && <Spinner animation="border" />}
+          {error && <Alert variant="danger">{error}</Alert>}
+          
+          {weather && (
+            <div className="fs-5">
+              <p><strong>Location:</strong> {weather.city}</p>
+              <p><strong>Temperature:</strong> {weather.temperature}°C</p>
+              <p><strong>Humidity:</strong> {weather.humidity}%</p> 
+              <p><strong>Condition:</strong> {weather.description}</p> 
+            </div>
+          )}
         </div>
       </div>
     </Container>

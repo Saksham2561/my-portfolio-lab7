@@ -37,7 +37,8 @@ None
 
 - [GitLab Repository](https://git.cs.dal.ca/saksham/csci-3172/-/tree/main/labs/lab7)
 - [GitHub Repository](https://github.com/Saksham2561/my-portfolio-lab7/tree/main/labs/lab7)
-- [Netlify](https://myportfolio-lab7.netlify.app/)
+- [Netlify - Backend](https://myportfolio-lab7.netlify.app/)
+- [AWS Amplify - Frontend] (https://main.d2hl9tl9z39g41.amplifyapp.com/)
 
 ## Acknowledgments
 

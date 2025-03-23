@@ -5,9 +5,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-const PORT = 5001;
-const cors = require('cors'); 
-app.use(cors()); 
+
+const cors = require('cors');
+app.use(cors());
 
 const projects = [
     {
@@ -36,7 +36,6 @@ const projects = [
     }
 ];
 
-
 app.get("/api/projects", (req, res) => {
     res.status(200).json(projects);
 });
@@ -60,6 +59,8 @@ app.get("/api/weather", async (req, res) => {
         res.status(500).json({ error: "Could not retrieve weather information" });
     }
 });
+
+const PORT = process.env.PORT || 3000;  
 
 app.listen(PORT, () => {
     console.log(`Server successfully running at http://localhost:${PORT}`);

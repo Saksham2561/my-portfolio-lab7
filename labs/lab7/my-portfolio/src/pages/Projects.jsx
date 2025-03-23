@@ -7,7 +7,6 @@ const Projects = () => {
   const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
-    // Change this to your Netlify function URL
     fetch("https://fabulous-panda-bdb8d5.netlify.app/.netlify/functions/server/projects")
       .then((res) => {
         if (!res.ok) {

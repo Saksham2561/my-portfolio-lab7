@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const serverless = require("serverless-http"); // 👈 Required for Netlify
+const serverless = require("serverless-http");
 
 dotenv.config();
 
@@ -64,5 +64,4 @@ router.get("/weather", async (req, res) => {
 
 app.use("/.netlify/functions/server", router);
 
-// Export handler for Netlify
 module.exports.handler = serverless(app);

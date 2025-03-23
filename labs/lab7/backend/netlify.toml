@@ -1,0 +1,6 @@
+[build]
+  functions = "functions"
+
+[dev]
+  command = "node server.js"
+  targetPort = 3000

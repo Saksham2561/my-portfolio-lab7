@@ -8,7 +8,8 @@ const Home = () => {
   const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/weather")
+    // Change this to your Netlify function URL for weather data
+    fetch("https://fabulous-panda-bdb8d5.netlify.app/.netlify/functions/server/weather")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Could not retrieve weather data.");
@@ -78,7 +79,7 @@ const Home = () => {
 
           {weatherData && (
             <div className="fs-5">
-              <p><strong>City:</strong> {weatherData.city}</p>
+              <p><strong>City:</strong> {weatherData.location}</p>
               <p><strong>Temperature:</strong> {weatherData.temperature}°C</p>
               <p><strong>Humidity:</strong> {weatherData.humidity}%</p>
               <p><strong>Condition:</strong> {weatherData.description}</p>

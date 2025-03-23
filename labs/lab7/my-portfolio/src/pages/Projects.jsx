@@ -7,7 +7,8 @@ const Projects = () => {
   const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/projects")
+    // Change this to your Netlify function URL
+    fetch("https://fabulous-panda-bdb8d5.netlify.app/.netlify/functions/server/projects")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Unable to retrieve projects.");

@@ -1,13 +1,15 @@
-const express = require('express');
-const axios = require('axios');
-const dotenv = require('dotenv');
+const express = require("express");
+const axios = require("axios");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const serverless = require("serverless-http"); // 👈 Required for Netlify
 
 dotenv.config();
 
 const app = express();
-
-const cors = require('cors');
 app.use(cors());
+
+const router = express.Router();
 
 const projects = [
     {
@@ -36,11 +38,11 @@ const projects = [
     }
 ];
 
-app.get("/api/projects", (req, res) => {
+router.get("/projects", (req, res) => {
     res.status(200).json(projects);
 });
 
-app.get("/api/weather", async (req, res) => {
+router.get("/weather", async (req, res) => {
     const location = "Halifax";
 
     try {
@@ -60,8 +62,7 @@ app.get("/api/weather", async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;  
+app.use("/.netlify/functions/server", router);
 
-app.listen(PORT, () => {
-    console.log(`Server successfully running at http://localhost:${PORT}`);
-});
+// Export handler for Netlify
+module.exports.handler = serverless(app);
